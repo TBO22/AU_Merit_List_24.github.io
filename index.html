@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Air University Unofficial Merit Position Checker">
+  <meta name="author" content="Your Name">
+  <title>Air University Unofficial Merit Position</title>
+  <style>
+    /* Resetting some basic styles */
+    body, h1, p, table {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: #333;
+      padding: 0 15px;
+    }
+
+    .header {
+      background-color: black;
+      color: #fff;
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: cyan;
+    }
+
+    .header .disclaimer {
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+
+    .header .disclaimer a {
+      color: #ffcc00;
+      text-decoration: none;
+    }
+
+    .header form {
+      margin-bottom: 20px;
+    }
+
+    .header input[type="text"] {
+      padding: 10px;
+      font-size: 1em;
+      width: 60%;
+      max-width: 500px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .header button {
+      padding: 10px 20px;
+      font-size: 1em;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    .header button:hover {
+      background-color: #0056b3;
+    }
+
+    .header .info {
+      font-size: 0.9em;
+      margin-top: 10px;
+    }
+
+    .results-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .results-table thead {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .results-table th, .results-table td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    .results-table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .results-table tr:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1>Air University UNOFFICIAL Merit Position</h1>
+      <p class="disclaimer">Disclaimer: This merit list is created by Anonymous XYZ and is not affiliated with <a href="https://au.edu.pk">AU Pakistan</a>.</p>
+      <form id="search-form">
+        <input type="text" id="search-input" placeholder="Enter your admit card number or full name...">
+        <button type="submit">Search</button>
+      </form>
+      <p class="info">It might take a few seconds to load the database for your first search (depending on your internet connection).</p>
+      <table class="results-table" id="results-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Admit Card Number</th>
+            <th>Merit Position</th>
+            <th>Aggregate Merit Score</th>
+            <th>Full Name</th>
+            <th>1st Preference</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Data rows will be inserted here -->
+        </tbody>
+      </table>
+    </div>
+  </header>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+  <script>
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const searchInput = document.getElementById('search-input').value.trim().toLowerCase();
+      
+      // Load and parse CSV file
+      Papa.parse('data/meritlist.csv', {
+        download: true,
+        header: true,
+        complete: function(results) {
+          const data = results.data;
+          const filteredData = data.filter(row => 
+            row['Admit Card Number'].toLowerCase() === searchInput || 
+            row['Full Name'].toLowerCase() === searchInput
+          );
+          
+          // Update the results table
+          const tableBody = document.querySelector('#results-table tbody');
+          tableBody.innerHTML = ''; // Clear existing rows
+          
+          if (filteredData.length > 0) {
+            filteredData.forEach((row, index) => {
+              const rowElement = document.createElement('tr');
+              rowElement.innerHTML = `
+                <td>${index + 1}</td>
+                <td>${row['Admit Card Number']}</td>
+                <td>${row['Merit Position']}</td>
+                <td>${row['Aggregate Merit Score']}</td>
+                <td>${row['Full Name']}</td>
+                <td>${row['1st Preference']}</td>
+              `;
+              tableBody.appendChild(rowElement);
+            });
+          } else {
+            const rowElement = document.createElement('tr');
+            rowElement.innerHTML = '<td colspan="6">No results found</td>';
+            tableBody.appendChild(rowElement);
+          }
+        },
+        error: function(error) {
+          console.error('Error loading CSV file:', error);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
