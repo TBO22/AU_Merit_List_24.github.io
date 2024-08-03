@@ -136,16 +136,18 @@
     document.getElementById('search-form').addEventListener('submit', function(event) {
       event.preventDefault();
       const searchInput = document.getElementById('search-input').value.trim().toLowerCase();
+      console.log('Search input:', searchInput);
       
       // Load and parse CSV file
       Papa.parse('data/meritlist.csv', {
         download: true,
         header: true,
         complete: function(results) {
+          console.log('CSV parsed results:', results.data);
           const data = results.data;
           const filteredData = data.filter(row => 
-            row['Admit Card Number'].toLowerCase() === searchInput || 
-            row['Full Name'].toLowerCase() === searchInput
+            (row['Admit Card Number'] && row['Admit Card Number'].toLowerCase() === searchInput) || 
+            (row['Full Name'] && row['Full Name'].toLowerCase() === searchInput)
           );
           
           // Update the results table
@@ -157,11 +159,11 @@
               const rowElement = document.createElement('tr');
               rowElement.innerHTML = `
                 <td>${index + 1}</td>
-                <td>${row['Admit Card Number']}</td>
-                <td>${row['Merit Position']}</td>
-                <td>${row['Aggregate Merit Score']}</td>
-                <td>${row['Full Name']}</td>
-                <td>${row['1st Preference']}</td>
+                <td>${row['Admit Card Number'] || 'N/A'}</td>
+                <td>${row['Merit Position'] || 'N/A'}</td>
+                <td>${row['Aggregate Merit Score'] || 'N/A'}</td>
+                <td>${row['Full Name'] || 'N/A'}</td>
+                <td>${row['1st Preference'] || 'N/A'}</td>
               `;
               tableBody.appendChild(rowElement);
             });
