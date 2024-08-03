@@ -67,27 +67,36 @@
       margin-bottom: 10px; /* Add margin-bottom for spacing */
     }
 
-   .header button {
-  font-size: 1em;
-  color: #fff;
-  background-color: red;
-  border: 3px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  outline: none;
-  animation: animate-border 2s linear infinite; /* Apply the border animation */
-  width: 130px; 
-  height: 40px;
-  padding: 0; /* Remove default padding */
-  box-sizing: border-box; /* Include border and padding in element's total width and height */
-  display: flex; /* Use flexbox for centering */
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
-  text-align: center; /* Center text */
-}
+    .header button {
+      font-size: 1em;
+      color: #fff;
+      background-color: red;
+      border: 3px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      outline: none;
+      animation: animate-border 2s linear infinite; /* Apply the border animation */
+      width: 130px; 
+      height: 40px;
+      padding: 0; /* Remove default padding */
+      box-sizing: border-box; /* Include border and padding in element's total width and height */
+      display: flex; /* Use flexbox for centering */
+      align-items: center; /* Center items vertically */
+      justify-content: center; /* Center items horizontally */
+      text-align: center; /* Center text */
+    }
 
+    /* Media Queries for Responsive Design */
+    @media (max-width: 600px) {
+      .header button {
+        font-size: 0.9em; /* Adjust font size */
+        width: 120px; /* Adjust width if needed */
+        height: 36px; /* Adjust height if needed */
+        padding: 0; /* Keep padding removed */
+      }
+    }
 
     .header button:hover {
       background-color: #0056b3;
@@ -125,86 +134,56 @@
       margin-top: 10px;
     }
 
+    /* Modern Table Design */
+    .results-table-wrapper {
+      overflow-x: auto; /* Allow horizontal scrolling if needed */
+      margin-top: 30px;
+    }
+
     .results-table {
       width: 100%;
+      margin-bottom: 120px;
       border-collapse: collapse;
-      margin-top: 30px;
-      margin-bottom: 100px;
+      min-width: 600px; /* Minimum width to enable horizontal scrolling */
+      background: #222; /* Dark background for modern look */
+      color: #ddd; /* Light text color for contrast */
+      border-radius: 8px; /* Rounded corners for modern look */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
     }
 
     .results-table thead {
-      background: linear-gradient(45deg, #007bff, #00c6ff); /* Linear gradient background */
+      background: linear-gradient(45deg, #007bff, #00c6ff); /* Gradient header */
       color: #fff;
     }
 
     .results-table th, .results-table td {
       padding: 12px;
       text-align: left;
+      border-bottom: 1px solid #444; /* Subtle border for row separation */
+    }
+
+    .results-table th {
+      font-weight: bold;
+      text-transform: uppercase; /* Uppercase headers for a modern look */
     }
 
     .results-table tr:nth-child(even) {
-      background-color: #f2f2f2;
+      background-color: #333; /* Alternating row color for better readability */
     }
 
-    .results-table tr:hover {
-      background-color: #ddd;
+    .results-table td {
+      word-wrap: break-word; /* Ensure long text wraps correctly */
     }
 
-    /* Loader styles */
-    .loading-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      display: none; /* Initially hidden */
-    }
-
-    .loader-spinner {
-      width: 80px;
-      height: 80px;
-      border: 8px solid rgba(255, 255, 255, 0.3);
-      border-top: 8px solid #00ff00;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite; /* Faster spin for better performance */
-    }
-
-    /* Fade out transition */
-    .fade-out {
-      opacity: 0;
-      pointer-events: none; /* Prevent interaction with hidden elements */
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* Media Queries for Responsive Design */
+    /* Responsive Design */
     @media (max-width: 600px) {
-      .header h1 {
-        font-size: 1.5em;
+      .results-table-wrapper {
+        margin-bottom: 20px; /* Add bottom margin for spacing */
       }
-      .header input[type="text"] {
-        width: calc(100% - 30px); /* Adjust width for padding and margins */
-      }
-      .header button {
-        font-size: 0.9em;
-        padding: 20px 16px;
-      }
+      
       .results-table th, .results-table td {
-        font-size: 0.8em;
-        padding: 8px;
-        margin-bottom: 100px;
+        padding: 8px; /* Adjust padding for smaller screens */
+        font-size: 0.8em; /* Smaller font size for mobile */
       }
     }
 
@@ -229,21 +208,60 @@
     }
 
     .footer-icons {
-  position: absolute;
-  right: 15px;
-  top: 15px;
-}
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
 
-.footer-icons a {
-  color: #fff;
-  font-size: 1.5em;
-  margin: 0 10px;
-  text-decoration: none;
-}
+    .footer-icons a {
+      color: #fff;
+      font-size: 1.5em;
+      margin: 0 10px;
+      text-decoration: none;
+    }
 
-.footer-icons a:hover {
-  color: #00c6ff;
-}
+    .footer-icons a:hover {
+      color: #00c6ff;
+    }
+
+    /* Loader styles */
+    .loading-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 120vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none; /* Initially hidden */
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px solid rgba(255, 255, 255, 0.3);
+      border-top: 8px solid #00ff00;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite; /* Faster spin for better performance */
+    }
+
+    /* Fade out transition */
+    .fade-out {
+      opacity: 0;
+      pointer-events: none; /* Prevent interaction with hidden elements */
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 <body>
@@ -257,21 +275,23 @@
         <button type="submit">Search</button>
       </form>
       <p class="info">It might take a few seconds to load the database for your first search (depending on your internet connection).</p>
-      <table class="results-table" id="results-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Admit Card Number</th>
-            <th>Merit Position</th>
-            <th>Aggregate Merit Score</th>
-            <th>Full Name</th>
-            <th>1st Preference</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Data rows will be inserted here -->
-        </tbody>
-      </table>
+      <div class="results-table-wrapper">
+        <table class="results-table" id="results-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Admit Card Number</th>
+              <th>Merit Position</th>
+              <th>Aggregate Merit Score</th>
+              <th>Full Name</th>
+              <th>1st Preference</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </header>
   <!-- Loader -->
