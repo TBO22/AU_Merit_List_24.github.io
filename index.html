@@ -19,6 +19,7 @@
       background-color: black;
       color: #333;
       padding: 0 15px;
+      transition: opacity 0.5s ease;
     }
 
     .header {
@@ -84,7 +85,7 @@
     }
 
     .results-table thead {
-      background-color: #007bff;
+      background: linear-gradient(45deg, #007bff, #00c6ff); /* Linear gradient background */
       color: #fff;
     }
 
@@ -99,6 +100,46 @@
 
     .results-table tr:hover {
       background-color: #ddd;
+    }
+
+    /* Loader styles */
+    .loading-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      display: none; /* Initially hidden */
+    }
+
+    .loader-spinner {
+      width: 80px;
+      height: 80px;
+      border: 8px solid rgba(255, 255, 255, 0.3);
+      border-top: 8px solid #00ff00;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    /* Fade out transition */
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none; /* Prevent interaction with hidden elements */
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -130,13 +171,24 @@
     </div>
   </header>
 
+  <!-- Loader -->
+  <div class="loading-container" id="loading-container">
+    <div class="loader-spinner"></div>
+  </div>
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
   <script>
     document.getElementById('search-form').addEventListener('submit', function(event) {
       event.preventDefault();
+
+      const loadingContainer = document.getElementById('loading-container');
       const searchInput = document.getElementById('search-input').value.trim().toLowerCase();
       console.log('Search input:', searchInput);
+      
+      // Show loader and hide background
+      loadingContainer.style.display = 'flex';
+      document.body.classList.add('fade-out');
       
       // Load and parse CSV file
       Papa.parse('data/meritlist.csv', {
@@ -150,28 +202,34 @@
             (row['Full Name'] && row['Full Name'].toLowerCase() === searchInput)
           );
           
-          // Update the results table
-          const tableBody = document.querySelector('#results-table tbody');
-          tableBody.innerHTML = ''; // Clear existing rows
-          
-          if (filteredData.length > 0) {
-            filteredData.forEach((row, index) => {
+          // Hide loader and show background after 2 seconds
+          setTimeout(() => {
+            loadingContainer.style.display = 'none';
+            document.body.classList.remove('fade-out');
+
+            // Update the results table
+            const tableBody = document.querySelector('#results-table tbody');
+            tableBody.innerHTML = ''; // Clear existing rows
+            
+            if (filteredData.length > 0) {
+              filteredData.forEach((row, index) => {
+                const rowElement = document.createElement('tr');
+                rowElement.innerHTML = `
+                  <td>${index + 1}</td>
+                  <td>${row['Admit Card Number'] || 'N/A'}</td>
+                  <td>${row['Merit Position'] || 'N/A'}</td>
+                  <td>${row['Aggregate Merit Score'] || 'N/A'}</td>
+                  <td>${row['Full Name'] || 'N/A'}</td>
+                  <td>${row['1st Preference'] || 'N/A'}</td>
+                `;
+                tableBody.appendChild(rowElement);
+              });
+            } else {
               const rowElement = document.createElement('tr');
-              rowElement.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${row['Admit Card Number'] || 'N/A'}</td>
-                <td>${row['Merit Position'] || 'N/A'}</td>
-                <td>${row['Aggregate Merit Score'] || 'N/A'}</td>
-                <td>${row['Full Name'] || 'N/A'}</td>
-                <td>${row['1st Preference'] || 'N/A'}</td>
-              `;
+              rowElement.innerHTML = '<td colspan="6">No results found</td>';
               tableBody.appendChild(rowElement);
-            });
-          } else {
-            const rowElement = document.createElement('tr');
-            rowElement.innerHTML = '<td colspan="6">No results found</td>';
-            tableBody.appendChild(rowElement);
-          }
+            }
+          }, 2000); // Simulated delay for loader
         },
         error: function(error) {
           console.error('Error loading CSV file:', error);
