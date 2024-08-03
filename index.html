@@ -13,7 +13,6 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: Arial, sans-serif;
       background-color: black;
@@ -21,14 +20,12 @@
       padding: 0 15px;
       transition: opacity 0.3s ease; /* Shorter transition for smoother effect */
     }
-
     .header {
       background-color: black;
       color: #fff;
       padding: 20px;
       text-align: center;
     }
-
     .header h1 {
       font-size: 2.5em;
       margin-bottom: 10px;
@@ -38,24 +35,20 @@
         6px 6px 0 rgba(0, 0, 0, 0.6), 
         9px 9px 0 rgba(0, 0, 0, 0.5); 
     }
-
     .header .disclaimer {
       font-size: 1em;
       margin-bottom: 20px;
     }
-
     .header .disclaimer a {
       color: #ffcc00;
       text-decoration: none;
     }
-
     .header form {
       margin-bottom: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
     .header input[type="text"] {
       padding: 10px;
       font-size: 1em;
@@ -65,7 +58,6 @@
       border-radius: 5px;
       margin-bottom: 10px; /* Add margin-bottom for spacing */
     }
-
     .header button {
       padding: 10px 20px;
       font-size: 1em;
@@ -79,11 +71,9 @@
       outline: none;
       animation: animate-border 2s linear infinite; /* Apply the border animation */
     }
-
     .header button:hover {
       background-color: #0056b3;
     }
-
     @keyframes animate-border {
       0% {
         border-color: rgb(255, 0, 0); /* Red */
@@ -110,36 +100,29 @@
         border-color: rgb(255, 0, 0); /* Red */
       }
     }
-
     .header .info {
       font-size: 0.9em;
       margin-top: 10px;
     }
-
     .results-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 20px;
     }
-
     .results-table thead {
       background: linear-gradient(45deg, #007bff, #00c6ff); /* Linear gradient background */
       color: #fff;
     }
-
     .results-table th, .results-table td {
       padding: 12px;
       text-align: left;
     }
-
     .results-table tr:nth-child(even) {
       background-color: #f2f2f2;
     }
-
     .results-table tr:hover {
       background-color: #ddd;
     }
-
     /* Loader styles */
     .loading-container {
       position: fixed;
@@ -154,7 +137,6 @@
       z-index: 9999;
       display: none; /* Initially hidden */
     }
-
     .loader-spinner {
       width: 80px;
       height: 80px;
@@ -163,13 +145,11 @@
       border-radius: 50%;
       animation: spin 0.6s linear infinite; /* Faster spin for better performance */
     }
-
     /* Fade out transition */
     .fade-out {
       opacity: 0;
       pointer-events: none; /* Prevent interaction with hidden elements */
     }
-
     @keyframes spin {
       0% {
         transform: rotate(0deg);
@@ -178,28 +158,23 @@
         transform: rotate(360deg);
       }
     }
-
     /* Media Queries for Responsive Design */
     @media (max-width: 600px) {
       .header h1 {
         font-size: 1.5em;
       }
-
       .header input[type="text"] {
         width: calc(100% - 30px); /* Adjust width for padding and margins */
       }
-
       .header button {
         font-size: 0.9em;
         padding: 8px 16px;
       }
-
       .results-table th, .results-table td {
         font-size: 0.8em;
         padding: 8px;
       }
     }
-
     /* Footer styles */
     footer {
       background-color: #111;
@@ -210,7 +185,6 @@
       bottom: 0;
       width: 100%;
     }
-
     footer p {
       margin: 0;
       font-size: 0.8em;
@@ -244,27 +218,22 @@
       </table>
     </div>
   </header>
-
   <!-- Loader -->
   <div class="loading-container" id="loading-container">
     <div class="loader-spinner"></div>
   </div>
-
   <!-- Footer -->
   <footer>
     <p>&copy; 2024 TBO BSDS 23 🎓. All rights reserved.</p>
   </footer>
-
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
   <script>
     document.getElementById('search-form').addEventListener('submit', function(event) {
       event.preventDefault();
-
       const loadingContainer = document.getElementById('loading-container');
       const searchInput = document.getElementById('search-input').value.trim().toLowerCase();
       console.log('Search input:', searchInput);
-      
       // Show loader and hide background
       loadingContainer.style.display = 'flex';
       document.body.classList.add('fade-out');
