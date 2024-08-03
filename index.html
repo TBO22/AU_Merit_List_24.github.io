@@ -3,77 +3,88 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Air University Unofficial Merit Position Checker">
+  <meta name="description" content="Air University Merit Tracker">
   <meta name="author" content="Your Name">
-  <title>Air University Unofficial Merit Position</title>
+  <title>Air University Merit Tracker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     /* Resetting some basic styles */
-    body, h1, p, table {
+    html, body {
+      height: 100%;
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
     }
     body {
+      display: flex;
+      flex-direction: column;
       font-family: Arial, sans-serif;
       background-color: black;
       color: #333;
       padding: 0 15px;
       transition: opacity 0.3s ease; /* Shorter transition for smoother effect */
     }
+
     .header {
       background-color: black;
       color: #fff;
       padding: 20px;
       text-align: center;
     }
+
     .header h1 {
       font-size: 2.5em;
       margin-bottom: 10px;
       color: cyan; /* Set color to cyan */
       text-shadow: 
-        3px 3px 0 rgba(0, 0, 0, 0.7), /* Offset shadow for 3D effect */
-        6px 6px 0 rgba(0, 0, 0, 0.6), 
-        9px 9px 0 rgba(0, 0, 0, 0.5); 
+        5px 3px 0 rgba(10, 10, 0, 0.7), /* Offset shadow for 3D effect */
+        6px 6px 0 rgba(10, 0, 0, 0.6), 
+        9px 9px 0 rgba(0, 0, 20, 0.5); 
     }
+
     .header .disclaimer {
       font-size: 1em;
       margin-bottom: 20px;
     }
+
     .header .disclaimer a {
       color: #ffcc00;
       text-decoration: none;
     }
+
     .header form {
       margin-bottom: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
+
     .header input[type="text"] {
       padding: 10px;
       font-size: 1em;
       width: 100%;
       max-width: 500px;
       border: 2px solid #ccc;
-      border-radius: 5px;
+      border-radius: 17px;
       margin-bottom: 10px; /* Add margin-bottom for spacing */
     }
+
     .header button {
-      padding: 10px 20px;
+      padding: 10px 30px;
       font-size: 1em;
       color: #fff;
       background-color: red;
       border: 3px solid transparent;
-      border-radius: 5px;
+      border-radius: 8px;
       cursor: pointer;
       position: relative;
       overflow: hidden;
       outline: none;
       animation: animate-border 2s linear infinite; /* Apply the border animation */
     }
+
     .header button:hover {
       background-color: #0056b3;
     }
+
     @keyframes animate-border {
       0% {
         border-color: rgb(255, 0, 0); /* Red */
@@ -100,29 +111,37 @@
         border-color: rgb(255, 0, 0); /* Red */
       }
     }
+
     .header .info {
       font-size: 0.9em;
       margin-top: 10px;
     }
+
     .results-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 30px;
+      margin-bottom: 100px;
     }
+
     .results-table thead {
       background: linear-gradient(45deg, #007bff, #00c6ff); /* Linear gradient background */
       color: #fff;
     }
+
     .results-table th, .results-table td {
       padding: 12px;
       text-align: left;
     }
+
     .results-table tr:nth-child(even) {
       background-color: #f2f2f2;
     }
+
     .results-table tr:hover {
       background-color: #ddd;
     }
+
     /* Loader styles */
     .loading-container {
       position: fixed;
@@ -137,6 +156,7 @@
       z-index: 9999;
       display: none; /* Initially hidden */
     }
+
     .loader-spinner {
       width: 80px;
       height: 80px;
@@ -145,11 +165,13 @@
       border-radius: 50%;
       animation: spin 0.6s linear infinite; /* Faster spin for better performance */
     }
+
     /* Fade out transition */
     .fade-out {
       opacity: 0;
       pointer-events: none; /* Prevent interaction with hidden elements */
     }
+
     @keyframes spin {
       0% {
         transform: rotate(0deg);
@@ -158,6 +180,7 @@
         transform: rotate(360deg);
       }
     }
+
     /* Media Queries for Responsive Design */
     @media (max-width: 600px) {
       .header h1 {
@@ -168,13 +191,19 @@
       }
       .header button {
         font-size: 0.9em;
-        padding: 8px 16px;
+        padding: 20px 16px;
       }
       .results-table th, .results-table td {
         font-size: 0.8em;
         padding: 8px;
+        margin-bottom: 100px;
       }
     }
+
+    .spacer {
+      height: 30px; /* Adjust this value as needed */
+    }
+
     /* Footer styles */
     footer {
       background-color: #111;
@@ -182,20 +211,39 @@
       text-align: center;
       padding: 15px 0;
       position: relative;
-      bottom: 0;
       width: 100%;
+      margin-top: auto; /* Pushes footer to the bottom */
     }
+
     footer p {
       margin: 0;
       font-size: 0.8em;
     }
+
+    .footer-icons {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.footer-icons a {
+  color: #fff;
+  font-size: 1.5em;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-icons a:hover {
+  color: #00c6ff;
+}
   </style>
 </head>
 <body>
   <header class="header">
     <div class="container">
-      <h1>Air University Unofficial Merit Position</h1>
+      <h1>Air University Merit Overview</h1>
       <p class="disclaimer">Disclaimer: This merit list is created by TBO BSDS Batch 23 as a Web Scraping Project and is not an official merit list of <a href="https://au.edu.pk">AU Pakistan</a>.</p>
+      <div class="spacer"></div>
       <form id="search-form">
         <input type="text" id="search-input" placeholder="Enter your admit card number or full name...">
         <button type="submit">Search</button>
@@ -225,6 +273,10 @@
   <!-- Footer -->
   <footer>
     <p>&copy; 2024 TBO BSDS 23 🎓. All rights reserved.</p>
+    <div class="footer-icons">
+      <a href="https://github.com/TBO22" target="_blank" title="GitHub Profile"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/talha-bin-omar-864940246/" target="_blank" title="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+    </div>
   </footer>
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
