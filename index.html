@@ -67,19 +67,27 @@
       margin-bottom: 10px; /* Add margin-bottom for spacing */
     }
 
-    .header button {
-      padding: 10px 30px;
-      font-size: 1em;
-      color: #fff;
-      background-color: red;
-      border: 3px solid transparent;
-      border-radius: 8px;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      outline: none;
-      animation: animate-border 2s linear infinite; /* Apply the border animation */
-    }
+   .header button {
+  font-size: 1em;
+  color: #fff;
+  background-color: red;
+  border: 3px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  animation: animate-border 2s linear infinite; /* Apply the border animation */
+  width: 130px; 
+  height: 40px;
+  padding: 0; /* Remove default padding */
+  box-sizing: border-box; /* Include border and padding in element's total width and height */
+  display: flex; /* Use flexbox for centering */
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  text-align: center; /* Center text */
+}
+
 
     .header button:hover {
       background-color: #0056b3;
