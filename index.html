@@ -35,9 +35,9 @@
       margin-bottom: 10px;
       color: cyan; /* Set color to cyan */
       text-shadow: 
-        5px 3px 0 rgba(10, 10, 0, 0.7), /* Offset shadow for 3D effect */
-        6px 6px 0 rgba(10, 0, 0, 0.6), 
-        9px 9px 0 rgba(0, 0, 20, 0.5); 
+        1px 1px 2px rgba(0, 0, 0, 0.7), /* Add a subtle shadow to enhance readability */
+        0 0 5px rgba(0, 255, 255, 0.6), /* Cyan glow effect */
+        0 0 10px rgba(0, 255, 255, 0.3); /* Larger cyan glow for depth */
     }
 
     .header .disclaimer {
@@ -200,6 +200,7 @@
       position: relative;
       width: 100%;
       margin-top: auto; /* Pushes footer to the bottom */
+      box-sizing: border-box; /* Ensure padding is included in the element’s total width and height */
     }
 
     footer p {
@@ -207,10 +208,11 @@
       font-size: 0.8em;
     }
 
+    /* Adjust footer icons and text for smaller screens */
     .footer-icons {
-      position: absolute;
-      right: 15px;
-      top: 15px;
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
     }
 
     .footer-icons a {
@@ -218,6 +220,26 @@
       font-size: 1.5em;
       margin: 0 10px;
       text-decoration: none;
+    }
+
+    /* Ensure footer text doesn't overlap icons */
+    @media (max-width: 600px) {
+      footer {
+        padding: 10px 0;
+      }
+
+      footer p {
+        font-size: 0.7em; /* Smaller font size for mobile */
+        margin-bottom: 10px; /* Margin for spacing above icons */
+      }
+
+      .footer-icons {
+        flex-wrap: wrap; /* Allow wrapping of icons if needed */
+      }
+
+      .footer-icons a {
+        margin: 5px; /* Adjust margin for smaller screens */
+      }
     }
 
     .footer-icons a:hover {
@@ -229,13 +251,13 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 120vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.8);
+      width: 100vw; /* Full viewport width */
+      height: 100vh; /* Full viewport height */
+      background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      z-index: 9999; /* Ensure it sits above other content */
       display: none; /* Initially hidden */
     }
 
