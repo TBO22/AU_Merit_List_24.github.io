@@ -254,26 +254,20 @@
       width: 100vw; /* Full viewport width */
       height: 100vh; /* Full viewport height */
       background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: none; /* Initially hide the loader */
+      align-items: center; /* Center vertically */
+      justify-content: center; /* Center horizontally */
       z-index: 9999; /* Ensure it sits above other content */
-      display: none; /* Initially hidden */
+      overflow: hidden; /* Prevent any overflow */
     }
 
     .loader-spinner {
-      width: 80px;
-      height: 80px;
-      border: 8px solid rgba(255, 255, 255, 0.3);
-      border-top: 8px solid #00ff00;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite; /* Faster spin for better performance */
-    }
-
-    /* Fade out transition */
-    .fade-out {
-      opacity: 0;
-      pointer-events: none; /* Prevent interaction with hidden elements */
+      border: 8px solid rgba(255, 255, 255, 0.3); /* Light border */
+      border-top: 8px solid #00c6ff; /* Bright color for animation */
+      border-radius: 50%; /* Circular shape */
+      width: 60px; /* Size of the spinner */
+      height: 60px; /* Size of the spinner */
+      animation: spin 0.6s linear infinite; /* Spin animation */
     }
 
     @keyframes spin {
@@ -284,62 +278,72 @@
         transform: rotate(360deg);
       }
     }
+
+    /* Fade-out transition */
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.3s ease; /* Ensure this matches the transition you want */
+    }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="container">
-      <h1>Air University Merit Overview</h1>
-      <p class="disclaimer">Disclaimer: This merit list is created by TBO BSDS Batch 23 as a Web Scraping Project and is not an official merit list of <a href="https://au.edu.pk">AU Pakistan</a>.</p>
-      <div class="spacer"></div>
-      <form id="search-form">
-        <input type="text" id="search-input" placeholder="Enter your admit card number or full name...">
-        <button type="submit">Search</button>
-      </form>
-      <p class="info">It might take a few seconds to load the database for your first search (depending on your internet connection).</p>
-      <div class="results-table-wrapper">
-        <table class="results-table" id="results-table">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Admit Card Number</th>
-              <th>Merit Position</th>
-              <th>Aggregate Merit Score</th>
-              <th>Full Name</th>
-              <th>1st Preference</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Data rows will be inserted here -->
-          </tbody>
-        </table>
-      </div>
+  <div class="header">
+    <h1>Air University Merit Tracker</h1>
+    <div class="disclaimer">
+      <p>Disclaimer: The merit list is provisional and subject to verification. For official results, please refer to the university website.</p>
     </div>
-  </header>
-  <!-- Loader -->
+    <form id="search-form">
+      <input type="text" id="search-input" placeholder="Enter Admit Card Number or Full Name">
+      <button type="submit">Search</button>
+    </form>
+    <div class="info">Enter your details and click Search to see the merit list.</div>
+  </div>
+
   <div class="loading-container" id="loading-container">
     <div class="loader-spinner"></div>
   </div>
-  <!-- Footer -->
+
+  <div class="spacer"></div>
+
+  <div class="results-table-wrapper">
+    <table class="results-table" id="results-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Admit Card Number</th>
+          <th>Merit Position</th>
+          <th>Aggregate Merit Score</th>
+          <th>Full Name</th>
+          <th>1st Preference</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Results will be inserted here -->
+      </tbody>
+    </table>
+  </div>
+
   <footer>
-    <p>&copy; 2024 TBO BSDS 23 🎓. All rights reserved.</p>
+    <p>&copy; 2024 Air University. All rights reserved.</p>
     <div class="footer-icons">
-      <a href="https://github.com/TBO22" target="_blank" title="GitHub Profile"><i class="fab fa-github"></i></a>
-      <a href="https://www.linkedin.com/in/talha-bin-omar-864940246/" target="_blank" title="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+      <a href="#" title="Follow us on Facebook"><i class="fab fa-facebook-f"></i></a>
+      <a href="#" title="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+      <a href="#" title="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
     </div>
   </footer>
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
   <script>
     document.getElementById('search-form').addEventListener('submit', function(event) {
       event.preventDefault();
       const loadingContainer = document.getElementById('loading-container');
       const searchInput = document.getElementById('search-input').value.trim().toLowerCase();
       console.log('Search input:', searchInput);
+
       // Show loader and hide background
       loadingContainer.style.display = 'flex';
       document.body.classList.add('fade-out');
-      
+
       // Load and parse CSV file
       Papa.parse('data/meritlist.csv', {
         download: true,
